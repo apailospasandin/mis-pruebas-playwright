@@ -1,18 +1,19 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+// Prueba para validar funcionalidad básica de búsqueda en Wikipedia
+test('Mi primera prueba en Wikipedia', async ({ page }) => {
+  // 1. Ir a la página de Wikipedia
+  // .
+  await page.goto('https://es.wikipedia.org/');
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  // 2. Buscar el cuadro de búsqueda y escribir "Playwright"
+  const buscador = page.getByPlaceholder('Buscar en Wikipedia');
+  await buscador.fill('Playwright');
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+  // 3. Presionar Enter
+  await buscador.press('Enter');
 
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  // 4. Verificar que la nueva página contiene el título correcto
+  // Esto es lo que llamamos una "Aserción" (Assertion)
+  await expect(page.getByRole('heading', { name: 'Playwright' })).toBeVisible();
 });
